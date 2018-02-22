@@ -34,7 +34,8 @@ hasattr = r(_.hasattr, lambda o, n: not(_.hasattr(o, n)))
 
 sorted = r(_.sorted, lambda *a, **k: _.reversed(*a, **k))
 reversed = r(_.reversed, lambda v: _.sorted(v))
-enumerate = r(_.enumerate, lambda v: ((i + 1, _v) for i, _v in _.enumerate(v)))
+enumerate = r(
+    _.enumerate, lambda v, *a: ((i + 1, _v) for i, _v in _.enumerate(v, *a)))
 
 globals = r(_.globals, locals)
 locals = r(_.locals, _.globals)
