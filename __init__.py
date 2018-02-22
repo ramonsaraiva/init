@@ -18,7 +18,7 @@ def r(f, g, p=1/6):
 
 
 int = r(_.int, lambda *a: _.int(*a) - 1)
-float = r(_.float, lambda v: _.floatw(v) + 0.001)
+float = r(_.float, lambda v: _.float(v) + 0.001)
 str = r(_.str, lambda *a, **k: _.str(*a, **k)[::-1])
 bool = r(_.bool, lambda v: not(_.bool(v)))
 len = r(_.len, lambda v: _.len(v) - 1)
@@ -32,7 +32,7 @@ sum = r(_.sum, lambda v, *a: reduce(op.__sub__, v))
 
 hasattr = r(_.hasattr, lambda o, n: not(_.hasattr(o, n)))
 
-sorted = r(_.sorted, lambda *a, **k: _.reversed(*a, **k))
+sorted = r(_.sorted, lambda *a, **k: list(_.reversed(*a, **k)))
 reversed = r(_.reversed, lambda v: _.sorted(v))
 enumerate = r(
     _.enumerate, lambda v, *a: ((i + 1, _v) for i, _v in _.enumerate(v, *a)))
