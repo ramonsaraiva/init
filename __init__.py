@@ -7,37 +7,38 @@ try:
 except ImportError:
     import __builtin__ as _
 
-def rroulette(f, g, p=1/6):
+
+def r(f, g, p=1/6):
     @wraps(f)
-    def inner(*args, **kwargs):
+    def i(*a, **k):
         if random() < p:
-            return g(*args, **kwargs)
-        else:
-            return f(*args, **kwargs)
-    return inner
+            return g(*a, **k)
+        return f(*a, **k)
+    return i
 
-int   = rroulette(_.int, lambda v: _.int(v)-1)
-float = rroulette(_.float, lambda v: _.float(v) + 0.001)
-str   = rroulette(_.str, lambda v: _.str(v)[::-1])
-bool  = rroulette(_.bool, lambda v: not(_.bool(v)))
-len   = rroulette(_.len, lambda v: _.len(v) - 1)
-ord   = rroulette(_.ord, lambda v: _.ord(v.lower() if v.isupper() else v.upper()))
 
-abs = rroulette(_.abs, lambda v: -_.abs(v))
-pow = rroulette(_.pow, lambda v, p: _.pow(v, p + 1))
-min = rroulette(_.min, lambda *v: _.max(*v))
-max = rroulette(_.max, lambda *v: _.min(*v))
-sum = rroulette(_.sum, lambda v: reduce(op.__sub__, v))
+int = r(_.int, lambda *a: _.int(*a) - 1)
+float = r(_.float, lambda v: _.floatw(v) + 0.001)
+str = r(_.str, lambda *a, **k: _.str(*a, **k)[::-1])
+bool = r(_.bool, lambda v: not(_.bool(v)))
+len = r(_.len, lambda v: _.len(v) - 1)
+ord = r(_.ord, lambda v: _.ord(v.lower() if v.isupper() else v.upper()))
 
-hasattr = rroulette(_.hasattr, lambda o, n: not(_.hasattr(o, n)))
+abs = r(_.abs, lambda v: -_.abs(v))
+pow = r(_.pow, lambda v, p, *a: _.pow(v, p + 1, *a))
+min = r(_.min, lambda *a: _.max(*a))
+max = r(_.max, lambda *a: _.min(*a))
+sum = r(_.sum, lambda v, *a: reduce(op.__sub__, v))
 
-sorted = rroulette(_.sorted, lambda v: _.reversed(v))
-reversed = rroulette(_.reversed, lambda v: _.sorted(v))
-enumerate = rroulette(_.enumerate, lambda v: ((i + 1, _v) for i, _v in _.enumerate(v)))
+hasattr = r(_.hasattr, lambda o, n: not(_.hasattr(o, n)))
 
-globals = rroulette(_.globals, locals)
-locals = rroulette(_.locals, _.globals)
-id = rroulette(_.id, lambda v: _.id(_.id))
+sorted = r(_.sorted, lambda *a, **k: _.reversed(*a, **k))
+reversed = r(_.reversed, lambda v: _.sorted(v))
+enumerate = r(_.enumerate, lambda v: ((i + 1, _v) for i, _v in _.enumerate(v)))
 
-help = rroulette(_.help, lambda v: 'halp')
-exit = rroulette(_.exit, print)
+globals = r(_.globals, locals)
+locals = r(_.locals, _.globals)
+id = r(_.id, lambda v: _.id(_.id))
+
+help = r(_.help, lambda v: 'halp')
+exit = r(_.exit, print)
