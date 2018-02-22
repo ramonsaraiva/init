@@ -16,3 +16,7 @@ You are one `import` away from evil.
        TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
 
  	0. You just DO WHAT THE FUCK YOU WANT TO.
+
+## Inspiration
+
+Inspired by Aras Pranckevičius's [preprocessor_fun.h](https://gist.github.com/aras-p/6224951)
